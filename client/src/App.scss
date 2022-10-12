@@ -1,0 +1,457 @@
+*,
+*::after,
+*::before {
+  font-family: "Heebo", sans-serif;
+  box-sizing: border-box;
+}
+$button-color: rgb(14, 104, 230);
+.headerWrapper {
+  position: fixed;
+  background-color: #fff;
+  opacity: 0.9;
+  width: 100%;
+  padding: 3px 15px;
+  z-index: 1000;
+  nav {
+    display: flex;
+    justify-content: space-between;
+    caret-color: transparent;
+    .logoWrapper {
+      display: flex;
+      align-items: center;
+      margin-top: -5px;
+      .menuBtnWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        width: 40px;
+        padding-bottom: 4px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid rgb(241, 241, 241);
+        caret-color: transparent;
+        transition: all 0.2s ease;
+        &:active {
+          background-color: rgb(233, 233, 233);
+          outline: 1px solid rgb(241, 241, 241);
+        }
+        div {
+          width: 19.5px;
+          height: 1.5px;
+          background-color: rgba(0, 0, 0, 0.521);
+          margin-top: 5px;
+        }
+      }
+      .logo {
+        margin-left: 10px;
+        margin-top: 5px;
+        cursor: pointer;
+        .logoImg {
+          width: 100px;
+          height: fit-content;
+        }
+      }
+    }
+    .searchBar {
+      min-width: 180px;
+      width: 620px;
+      max-width: 880px;
+      margin-top: 6px;
+      form {
+        display: flex;
+      }
+      .searchBtn {
+        display: flex;
+        padding: 8px 20px;
+        background-color: rgb(247, 247, 247);
+        border: 1px solid lightgrey;
+        border-left: none;
+        cursor: pointer;
+        .tooltip {
+          position: relative;
+          display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+          visibility: hidden;
+          width: 60px;
+          background-color: rgba(0, 0, 0, 0.508);
+          color: #fff;
+          text-align: center;
+          border-radius: 3px;
+          padding: 5px 0;
+
+          position: absolute;
+          left: -80%;
+          top: 50px;
+          z-index: 1;
+        }
+
+        .tooltip:hover .tooltiptext {
+          visibility: visible;
+        }
+        .searchIcon {
+          width: 20px;
+          height: 20px;
+        }
+        &:hover {
+          background-color: rgb(231, 231, 231);
+        }
+
+      }
+      input {
+        width: 80%;
+        padding: 10px 4px;
+        border: 1px solid lightgrey;
+        z-index: 100;
+        &::placeholder {
+          font-size: 1.2em;
+        }
+        &:focus {
+          outline: 1px solid rgb(24, 24, 102);
+        }
+      }
+    }
+    .profileSection {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      a {
+        text-decoration: none;
+      }
+      .createVideo {
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+        .tooltip {
+          position: relative;
+          display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+          visibility: hidden;
+          width: 60px;
+          background-color: rgba(0, 0, 0, 0.508);
+          color: #fff;
+          text-align: center;
+          border-radius: 3px;
+          padding: 5px 0;
+
+          position: absolute;
+          left: -50%;
+          top: 50px;
+          z-index: 1;
+        }
+
+        .tooltip:hover .tooltiptext {
+          visibility: visible;
+        }
+      }
+      .profileCircle {
+        width: 30px;
+        height: 30px;
+        background-color: lightgray;
+        border-radius: 50%;
+        margin-right: 20px;
+        cursor: pointer;
+        img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+      .dropDownMenu {
+        position: absolute;
+        background-color: #fff;
+        top: 20%;
+        left: -230px;
+        border: 1px solid lightgray;
+        width: 260px;
+        ul {
+          margin: 0;
+          padding: 0;
+          .headerSection {
+            display: flex;
+            align-items: center;
+            h3 {
+              margin: 0;
+            }
+          }
+          li {
+            padding: 10px 18px;
+            list-style: none;
+          }
+          .signOut{
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+.menuWrapper {
+  display: flex;
+  margin-top: 66px;
+  flex-direction: column;
+  gap: 5px;
+  width: 240px;
+
+  .sidehL {
+    width: 92%;
+    height: 1px;
+    background-color: rgb(212, 212, 212);
+  }
+  .signInSection {
+    display: flex;
+    flex-direction: column;
+    margin-left: 22.5px;
+    font-size: 14px;
+    a {
+      text-decoration: none;
+    }
+  }
+  .subscriptionsSection {
+    margin-left: 22.5px;
+    font-size: 14px;
+  }
+  ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    a {
+      display: block;
+      width: 100%;
+      padding-left: 24.5px;
+      text-decoration: none;
+      color: black;
+      &:hover {
+        background-color: #f2f2f2;
+      }
+    }
+    li {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      padding: 11px 0px;
+      img {
+        width: 21px;
+        height: 21px;
+      }
+      span {
+        margin-left: 25px;
+      }
+    }
+  }
+  .music,
+  .gaming,
+  .sports,
+  .news,
+  .live,
+  .movies {
+    li {
+      list-style: none;
+      font-size: 14px;
+    }
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  footer {
+    .infoPages {
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+      margin: 0 auto;
+      font-size: 0.9em;
+      word-spacing: 5px;
+    }
+  }
+}
+main {
+  width: 100vw;
+}
+.sideAndMainWrapper {
+  position: relative;
+  display: flex;
+  width: 100vw;
+  caret-color: transparent;
+}
+.contentWrapper {
+  margin-top: 70px;
+  padding-left: 25px;
+  padding-top: 25px;
+  padding-right: 25px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 70px;
+  background-color: #f9f9f9;
+  min-height: 268px;
+}
+.contentWrapperResults {
+  margin-top: 70px;
+  padding-left: 100px;
+  padding-top: 25px;
+  padding-right: 25px;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  background-color: #f9f9f9;
+  min-height: 268px;
+}
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 292px;
+  img {
+    width: 292px;
+    border: 1px solid black;
+  }
+  .videoDescription {
+    display: flex;
+    margin-top: 5px;
+    h4 {
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
+    .creatorChannel {
+      background-color: lightgray;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-top: 15px;
+      img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+      }
+    }
+    .videoInfo {
+      margin-left: 15px;
+      .channelViews {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+.searchWrapper {
+  display: flex;
+  img {
+    width: 360px;
+    height: 202px;
+    border: 1px solid black;
+    cursor: pointer;
+  }
+  .searchVideoDescription {
+    display: flex;
+    margin-left: 5px;
+    h3 {
+      cursor: pointer;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .searchCreatorChannel {
+      display: flex;
+      background-color: lightgray;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+      }
+    }
+    .searchVideoInfo {
+      margin-left: 15px;
+      span {
+        font-size: 12px;
+        color: rgb(62, 62, 62);
+        cursor: pointer;
+      }
+      .searchProfileSection {
+        display: flex;
+        margin-top: 15px;
+        gap: 10px;
+      }
+      .searchDesc {
+        margin-top: 15px;
+      }
+    }
+  }
+}
+.signInBtn {
+  display: flex;
+  position: relative;
+  cursor: pointer;
+  img {
+    position: absolute;
+    top: 15%;
+    left: 5%;
+    width: 24px;
+    height: 24px;
+  }
+  .signIn {
+    text-transform: uppercase;
+    background-color: transparent;
+    border: 1px solid $button-color;
+    color: $button-color;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 3px;
+    padding-left: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 16px;
+    text-align: right;
+    cursor: pointer;
+  }
+}
+
+.sidehL {
+  width: 92%;
+  height: 1px;
+  background-color: rgb(212, 212, 212);
+}
+
+.navhL {
+  height: 1px;
+  background-color: rgb(212, 212, 212);
+}
+.profileCircle {
+  width: 30px;
+  height: 30px;
+  background-color: lightgray;
+  border-radius: 50%;
+  margin-right: 20px;
+  cursor: pointer;
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+.profileCircle2 {
+  width: 30px;
+  height: 30px;
+  background-color: lightgray;
+  border-radius: 50%;
+  margin-right: 20px;
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}

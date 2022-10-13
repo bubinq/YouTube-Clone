@@ -33,6 +33,10 @@ const videoSchema = new mongoose.Schema({
     views: {
         type: Number,
         default: 0
+    },
+    trending: {
+        type: Number,
+        default: 0
     }
 }, {timestamps:true})
 

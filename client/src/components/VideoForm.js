@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 export const VideoForm = () => {
+  const navigateTo = useNavigate()
   const [isFocused, setFocus] = useState({
     title: false,
     imgUrl: false,
@@ -25,13 +27,16 @@ export const VideoForm = () => {
       new FormData(ev.target)
     );
     try {
-        const response = await axios.post("http://localhost:3030/api/video/create", {
+        const response = await axios.post("/video/create", {
             title,
             imgUrl,
             desc,
             videoUrl,
-            tags
+            tags: tags.split(', ')
+        }, {
+          withCredentials: true
         })
+        navigateTo('/')
         console.log(response);
     } catch (error) {
         alert(error.message)

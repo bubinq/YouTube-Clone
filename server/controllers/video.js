@@ -21,7 +21,6 @@ export const searchVideo = async (req, res) => {
     const searchedVideo = await Video.find({
       title: { $regex: queryParam, $options: "i" },
     });
-    console.log(searchedVideo);
     res.status(200).json(searchedVideo);
   } catch (error) {
     console.log(error.message);

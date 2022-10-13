@@ -10,8 +10,8 @@ export const Main = () => {
 
     useEffect(() => {
         const getVideos = async () => {
-            const response = await axios.get('http://localhost:3030/api/video')
-            const listOfUsers = await axios.get('http://localhost:3030/api/user')
+            const response = await axios.get('/video')
+            const listOfUsers = await axios.get('/user')
             setUsers(listOfUsers.data)
             setVideos(response.data)
         }

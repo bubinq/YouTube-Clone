@@ -31,7 +31,7 @@ export const logIn = async(req, res) => {
         const {password, ...details} = user._doc
 
         const token = jwt.sign({id: user._id}, process.env.JWT_KEY)
-        res.cookie('accessToken', token)
+        res.cookie('accessToken', token, {httpOnly: true})
         res.status(200).json(details)
     } catch (error) {
         console.log(error.msg);

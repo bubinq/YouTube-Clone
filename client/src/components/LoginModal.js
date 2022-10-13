@@ -20,14 +20,16 @@ export const LoginModal = ({ showModalHandler, toggle }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3030/api/auth/login",
+        "/auth/login",
         {
           email,
           password,
+        },
+        {
+          withCredentials:true
         }
       );
       setAuthUser(response.data);
-      console.log(response.data);
       navigateTo("/", { replace: true });
     } catch (error) {
       alert(error);

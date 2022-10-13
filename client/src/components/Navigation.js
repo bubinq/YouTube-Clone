@@ -15,7 +15,7 @@ export const Navigation = ({ showDropDownMenu, show, showModalHandler }) => {
     try {
       if (searchValue.trim()) {
         const response = await axios.post(
-          "http://localhost:3030/api/video/search",
+          "/video/search",
           {
             search: searchValue,
           }

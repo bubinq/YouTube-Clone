@@ -27,7 +27,7 @@ export const SideMenu = ({showModalHandler}) => {
                 <span>Explore</span>
               </li>
             </Link>
-            <Link to="/">
+            <Link to="/subs">
               <li>
                 <img
                   src="https://cdn2.iconfinder.com/data/icons/social-media-2482/24/subscription-256.png"

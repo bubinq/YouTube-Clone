@@ -22,9 +22,11 @@ const connectToDB = () => {
 }
 
 
-app.use(cors());
-app.use(express.json())
+app.use(cors({
+    "exposedHeaders": "Set-Cookie"
+}));
 app.use(cookieParser())
+app.use(express.json())
 app.use('/public', express.static('public'))
 app.use('/api/auth', authRouter)
 app.use('/api/video', videoRouter)

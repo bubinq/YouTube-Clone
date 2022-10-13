@@ -6,6 +6,7 @@ import { Register } from "./pages/Register";
 import { Results } from "./pages/Results";
 import { PrivateGuard } from "./guards/PrivateGuard";
 import { CreateVideo } from "./pages/CreateVideo";
+import { Subscriptions } from "./pages/Subscriptions";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/results" element={<Results />}></Route>
         <Route element={<PrivateGuard />}>
           <Route path="/create" element={<CreateVideo />}></Route>
+          <Route path="/subs" element={<Subscriptions />}></Route>
         </Route>
       </Routes>
     </div>

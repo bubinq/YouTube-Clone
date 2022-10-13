@@ -38,13 +38,15 @@ export const RegisterModal = ({ showModalHandler, toggle }) => {
     }
     try {
       const response = await axios.post(
-        "http://localhost:3030/api/auth/signup",
+        "/auth/signup",
         {
           name,
           email,
           img,
           password,
           repass,
+        }, {
+          withCredentials: true
         }
       );
       setAuthUser(response.data);

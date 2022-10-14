@@ -1,12 +1,14 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../pages/Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/authContext";
+import { ErrorMessages } from "./ErrorMessage";
 
 export const LoginModal = ({ showModalHandler, toggle }) => {
   const { setAuthUser } = useContext(AuthContext);
+  const [error, setError] = useState({ message: "", triggered: false, errorType: "" });
   const [isFocused, setFocus] = useState({
     email: false,
     password: false,
@@ -26,15 +28,23 @@ export const LoginModal = ({ showModalHandler, toggle }) => {
           password,
         },
         {
-          withCredentials:true
+          withCredentials: true,
         }
       );
       setAuthUser(response.data);
       navigateTo("/", { replace: true });
     } catch (error) {
-      alert(error);
+      const msg = error.response.data.message
+      setError({ triggered: true, message: msg, errorType: msg.split(' ')[1] });
     }
   };
+
+  useEffect(() => {
+    return () => {
+      setError({ triggered: false, message: "" });
+      setFocus({ email: false, password: false, errorType: "" });
+    };
+  }, [toggle]);
 
   const labelHandler = (ev) => {
     let input = ev.target;
@@ -58,7 +68,7 @@ export const LoginModal = ({ showModalHandler, toggle }) => {
             <span>Don't have an account?</span>
             <Link to="/register">Sign up</Link>
           </div>
-
+          {error.triggered && <ErrorMessages error={error}></ErrorMessages>}
           <form onSubmit={loginHandler}>
             <div className="email-wrapper">
               <label
@@ -68,6 +78,7 @@ export const LoginModal = ({ showModalHandler, toggle }) => {
                 Email
               </label>
               <input
+                className={error.errorType === "e-mail" ?  "errBorder" : " "}
                 type="email"
                 name="email"
                 id="email"
@@ -86,6 +97,7 @@ export const LoginModal = ({ showModalHandler, toggle }) => {
                 Password
               </label>
               <input
+                className={error.errorType === "password"? "errBorder" : ""}
                 type="password"
                 name="password"
                 id="password"

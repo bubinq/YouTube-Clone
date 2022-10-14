@@ -11,7 +11,7 @@ export const createVideo = async (req, res) => {
     res.status(201).json(saved);
   } catch (error) {
     console.log(error.message);
-    res.status(400).json("Something went wrong!");
+    res.status(400).json({message: error.message});
   }
 };
 
@@ -76,6 +76,20 @@ export const increaseViews = async (req, res) => {
   }
 };
 
+export const increaseTrendingViews = async (req, res) => {
+  try {
+    const video = await Video.findOneAndUpdate(
+      req.params.Id,
+      { $inc: { trending: 1 } },
+      { new: true }
+    );
+    res.status(200).json(video)
+  } catch (error) {
+    console.log(error.message)
+    res.status(400).json('Something went wrong!')
+  }
+};
+
 export const getRandomVideos = async (req, res) => {
   try {
     const videos = await Video.aggregate([{ $sample: { size: 50 } }]);
@@ -88,7 +102,7 @@ export const getRandomVideos = async (req, res) => {
 
 export const getTrendingVideos = async (req, res) => {
   try {
-    const videos = await Video.find().sort({ views: -1 });
+    const videos = await Video.find({}).sort({ trending: -1 });
     res.status(200).json(videos);
   } catch (error) {
     console.log(error.message);

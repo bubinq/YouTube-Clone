@@ -7,6 +7,7 @@ import { Results } from "./pages/Results";
 import { PrivateGuard } from "./guards/PrivateGuard";
 import { CreateVideo } from "./pages/CreateVideo";
 import { Subscriptions } from "./pages/Subscriptions";
+import { Trending } from "./pages/Trending";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/results" element={<Results />}></Route>
+        <Route path="/trending" element={<Trending />}></Route>
         <Route element={<PrivateGuard />}>
           <Route path="/create" element={<CreateVideo />}></Route>
           <Route path="/subs" element={<Subscriptions />}></Route>

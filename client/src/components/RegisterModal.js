@@ -1,11 +1,17 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../pages/Login.css";
 import axios from "axios";
 import { AuthContext } from "../contexts/authContext";
+import { ErrorMessages } from "./ErrorMessage";
 
 export const RegisterModal = ({ showModalHandler, toggle }) => {
   const { setAuthUser } = useContext(AuthContext);
+  const [error, setError] = useState({
+    message: "",
+    triggered: false,
+    errorType: "",
+  });
   const [isFocused, setFocus] = useState({
     name: false,
     email: false,
@@ -33,9 +39,6 @@ export const RegisterModal = ({ showModalHandler, toggle }) => {
     const { name, email, img, password, repass } = Object.fromEntries(
       new FormData(ev.target)
     );
-    if (password.trim() !== repass.trim()) {
-      alert("imash Greshka");
-    }
     try {
       const response = await axios.post(
         "/auth/signup",
@@ -45,16 +48,30 @@ export const RegisterModal = ({ showModalHandler, toggle }) => {
           img,
           password,
           repass,
-        }, {
-          withCredentials: true
+        },
+        {
+          withCredentials: true,
         }
       );
       setAuthUser(response.data);
       navigateTo("/", { replace: true });
     } catch (error) {
-      alert(error.message);
+      const msg = error.response.data.message;
+      setError({ triggered: true, message: msg, errorType: msg.split(" ")[0] });
     }
   };
+  useEffect(() => {
+    return () => {
+      setError({ triggered: false, message: "", errorType: "" });
+      setFocus({
+        name: false,
+        email: false,
+        img: false,
+        password: false,
+        repass: false,
+      });
+    };
+  }, [toggle]);
 
   if (!toggle) {
     return (
@@ -66,7 +83,7 @@ export const RegisterModal = ({ showModalHandler, toggle }) => {
             <span>Already have an account?</span>
             <Link to="/login">Sign in</Link>
           </div>
-
+          {error.triggered && <ErrorMessages error={error}></ErrorMessages>}
           <form onSubmit={registerHandler}>
             <div className="email-wrapper">
               <label
@@ -76,6 +93,7 @@ export const RegisterModal = ({ showModalHandler, toggle }) => {
                 Name
               </label>
               <input
+                className={error.errorType === "Name" ? "errBorder" : ''}
                 type="text"
                 name="name"
                 id="name"
@@ -93,6 +111,7 @@ export const RegisterModal = ({ showModalHandler, toggle }) => {
                 Email
               </label>
               <input
+                className={error.errorType === "E-mail" ? "errBorder" : ''}
                 type="email"
                 name="email"
                 id="email"
@@ -127,6 +146,7 @@ export const RegisterModal = ({ showModalHandler, toggle }) => {
                 Password
               </label>
               <input
+                className={error.errorType === "Your" ? "errBorder" : ''}
                 type="password"
                 name="password"
                 id="password"
@@ -144,6 +164,7 @@ export const RegisterModal = ({ showModalHandler, toggle }) => {
                 Confirm Password
               </label>
               <input
+                className={error.errorType === "Your" ? "errBorder" : ''}
                 type="password"
                 name="repass"
                 id="password-confirm"

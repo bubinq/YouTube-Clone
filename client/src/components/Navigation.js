@@ -32,6 +32,7 @@ export const Navigation = ({ showDropDownMenu, show, showModalHandler }) => {
     if (window.confirm("Are you sure you want to logout?")) {
       setAuthUser(null);
       localStorage.removeItem("authUser");
+      document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       navigateTo("/", { redirect: true });
     }
   };

@@ -11,16 +11,6 @@ export const addComment = async(req, res) => {
         res.status(400).json('Comment was not added')
     }
 }
-//  Add to MongoDB scheduled Triggers
-//  exports = async function() {
-//     const commentsCollection = context.services.get("FirstCluster").db("YouTube-Clone").collection("comments");
-//     try {
-//         await commentsCollection.updateMany({}, {$set: { message: "Empty" }});
-//     } catch (e) {
-//         console.log('Something went wrong', e);
-//     }
-// };
-
 
 export const getAllComments = async(req, res) => {
     try {

@@ -6,21 +6,19 @@ import { VideoContext } from "../contexts/videosContext";
 import { VideoCard } from "../components/VideoCard";
 import { UsersContext } from "../contexts/usersContext";
 
-export const Subscriptions = () => {
+export const Trending = () => {
   const [show, setShow] = useState(false);
   const { videos, setVideos } = useContext(VideoContext);
   const { users } = useContext(UsersContext);
 
   useEffect(() => {
-    const loadSubscribedToChannels = async () => {
+    const loadTrendingVideos = async () => {
       try {
-        const response = await axios.get("/video/sub", {
-          withCredentials: true,
-        });
+        const response = await axios.get("/video/trend");
         setVideos(response.data);
       } catch (error) {}
     };
-    loadSubscribedToChannels();
+    loadTrendingVideos();
     // eslint-disable-next-line
   }, []);
   const showDropDownMenu = (ev, value) => {

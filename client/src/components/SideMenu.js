@@ -1,9 +1,22 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../contexts/authContext";
+import { SubscribedUsers } from "./SubscribedUsers";
+import axios from "axios";
 
-export const SideMenu = ({showModalHandler}) => {
+export const SideMenu = ({ showModalHandler }) => {
   const { authUser } = useContext(AuthContext);
+  const [channels, setChannels] = useState([]);
+  useEffect(() => {
+    if (channels.length === 0 && authUser !== null) {
+      authUser.subscribedChannels.map(async function (channel) {
+        const currChannel = await axios.get(`/user/users/${channel}`);
+        setChannels((oldData) => [...oldData, currChannel.data]);
+      });
+    }
+
+    //eslint-disable-next-line
+  }, []);
   return (
     <aside>
       <div className="menuWrapper">
@@ -18,7 +31,7 @@ export const SideMenu = ({showModalHandler}) => {
                 <span>Home</span>
               </li>
             </Link>
-            <Link to="">
+            <Link to="/trending">
               <li>
                 <img
                   src="https://cdn1.iconfinder.com/data/icons/carbon-design-system-vol-4/32/explore-256.png"
@@ -83,10 +96,13 @@ export const SideMenu = ({showModalHandler}) => {
         )}
 
         <div className="subscriptionsSection">
-          <div className="subscriptionCard">
-            <div className="subscriptionProfile"></div>
-            <span>Some subscriber</span>
-          </div>
+          <h3 className="subsHeading">Subscriptions</h3>
+          {channels?.map((channel) => (
+            <SubscribedUsers
+              key={channel._id}
+              channel={channel}
+            ></SubscribedUsers>
+          ))}
         </div>
         <div className="sidehL"></div>
         <div className="exploreSection">

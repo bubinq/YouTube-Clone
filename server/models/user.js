@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
     img: {
         type: String
     },
+    subscribers: {
+        type: Number,
+        default: 0
+    },
     subscribedChannels: {
         type: [String],
         default: []

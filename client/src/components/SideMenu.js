@@ -1,17 +1,19 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../contexts/authContext";
 import { SubscribedUsers } from "./SubscribedUsers";
 import axios from "axios";
+import { VideoContext } from "../contexts/videosContext";
 
 export const SideMenu = ({ showModalHandler }) => {
-  const { authUser } = useContext(AuthContext);
-  const [channels, setChannels] = useState([]);
+  const { authUser, subbedChannels, setSubbedChannels } =
+    useContext(AuthContext);
+  const { selectedMenu, setSelectedMenu, initialMenuState } = useContext(VideoContext);
   useEffect(() => {
-    if (channels.length === 0 && authUser !== null) {
+    if (subbedChannels.length === 0 && authUser !== null) {
       authUser.subscribedChannels.map(async function (channel) {
         const currChannel = await axios.get(`/user/users/${channel}`);
-        setChannels((oldData) => [...oldData, currChannel.data]);
+        setSubbedChannels((oldData) => [...oldData, currChannel.data]);
       });
     }
 
@@ -22,7 +24,13 @@ export const SideMenu = ({ showModalHandler }) => {
       <div className="menuWrapper">
         <div className="videosWrapper">
           <ul>
-            <Link to="/">
+            <Link
+              to="/"
+              onClick={() => {
+                setSelectedMenu({ ...initialMenuState, home: true });
+              }}
+              className={selectedMenu.home ? "selected" : ""}
+            >
               <li>
                 <img
                   src="https://cdn1.iconfinder.com/data/icons/office-293/128/_Building_home_house-08-256.png"
@@ -31,7 +39,13 @@ export const SideMenu = ({ showModalHandler }) => {
                 <span>Home</span>
               </li>
             </Link>
-            <Link to="/trending">
+            <Link
+              to="/trending"
+              onClick={() => {
+                setSelectedMenu({ ...initialMenuState, explore: true });
+              }}
+              className={selectedMenu.explore ? "selected" : ""}
+            >
               <li>
                 <img
                   src="https://cdn1.iconfinder.com/data/icons/carbon-design-system-vol-4/32/explore-256.png"
@@ -40,7 +54,13 @@ export const SideMenu = ({ showModalHandler }) => {
                 <span>Explore</span>
               </li>
             </Link>
-            <Link to="/subs">
+            <Link
+              to="/subs"
+              onClick={() => {
+                setSelectedMenu({ ...initialMenuState, subs: true });
+              }}
+              className={selectedMenu.subs ? "selected" : ""}
+            >
               <li>
                 <img
                   src="https://cdn2.iconfinder.com/data/icons/social-media-2482/24/subscription-256.png"
@@ -54,7 +74,13 @@ export const SideMenu = ({ showModalHandler }) => {
         <div className="sidehL"></div>
         <div className="userActivity">
           <ul>
-            <Link to="/">
+            <Link
+              to="/"
+              onClick={() => {
+                setSelectedMenu({ ...initialMenuState, library: true });
+              }}
+              className={selectedMenu.library ? "selected" : ""}
+            >
               <li>
                 <img
                   src="https://cdn.iconscout.com/icon/free/png-256/video-library-1781676-1518357.png"
@@ -63,7 +89,13 @@ export const SideMenu = ({ showModalHandler }) => {
                 <span>Library</span>
               </li>
             </Link>
-            <Link to="/">
+            <Link
+              to="/"
+              onClick={() => {
+                setSelectedMenu({ ...initialMenuState, history: true });
+              }}
+              className={selectedMenu.history ? "selected" : ""}
+            >
               <li>
                 <img
                   src="https://cdn1.iconfinder.com/data/icons/material-core/21/history-512.png"
@@ -97,7 +129,7 @@ export const SideMenu = ({ showModalHandler }) => {
 
         <div className="subscriptionsSection">
           <h3 className="subsHeading">Subscriptions</h3>
-          {channels?.map((channel) => (
+          {subbedChannels?.map((channel) => (
             <SubscribedUsers
               key={channel._id}
               channel={channel}

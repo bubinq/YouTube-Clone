@@ -5,7 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import { VideoContext } from "../contexts/videosContext";
 export const Navigation = ({ showDropDownMenu, show, showModalHandler }) => {
-  const { authUser, setAuthUser } = useContext(AuthContext);
+  const { authUser, setAuthUser, setSubbedChannels } = useContext(AuthContext);
   const { setVideos } = useContext(VideoContext);
   const [searchValue, setSearchValue] = useState("");
   const navigateTo = useNavigate();
@@ -31,6 +31,7 @@ export const Navigation = ({ showDropDownMenu, show, showModalHandler }) => {
   const logoutHandler = () => {
     if (window.confirm("Are you sure you want to logout?")) {
       setAuthUser(null);
+      setSubbedChannels([])
       localStorage.removeItem("authUser");
       document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       navigateTo("/", { redirect: true });

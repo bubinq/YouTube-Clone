@@ -65,7 +65,7 @@ export const getVideo = async (req, res) => {
 export const increaseViews = async (req, res) => {
   try {
     const video = await Video.findOneAndUpdate(
-      req.params.Id,
+      {_id: req.params.Id},
       { $inc: { views: 1 } },
       { new: true }
     );
@@ -79,7 +79,7 @@ export const increaseViews = async (req, res) => {
 export const increaseTrendingViews = async (req, res) => {
   try {
     const video = await Video.findOneAndUpdate(
-      req.params.Id,
+      {_id: req.params.Id},
       { $inc: { trending: 1 } },
       { new: true }
     );

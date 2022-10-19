@@ -1,22 +1,81 @@
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { VideoContext } from "../contexts/videosContext";
+import { LikeDislikeErros } from "./LikeDislikeErrors";
 
 export const VideoLayout = () => {
   const { displayedVideo, displayedChannel, likes, setLikes } =
     useContext(VideoContext);
+  const [errors, setErrors] = useState({ message: "", type: "", show: false });
+  const [isSubscribed, setSubscribed] = useState(false);
+
+  // useEffect(() => {
+  //   const getMe = async () => {
+
+  //   }
+  // }, [])
+
   const likeVideo = async () => {
-    const video = await axios.patch(`/video/like/${displayedVideo._id}`);
-    setLikes(video.data.video.likes.length);
+    try {
+      const video = await axios.patch(`/video/like/${displayedVideo._id}`);
+      setLikes(video.data.video.likes.length);
+      setErrors({ message: "", type: "", show: false });
+    } catch (error) {
+      setErrors({
+        message: error.response.data.message,
+        type: "like",
+        show: true,
+      });
+    }
   };
 
   const dislikeVideo = async () => {
-    const video = await axios.patch(`/video/dislike/${displayedVideo._id}`);
-    setLikes(video.data.video.likes.length);
+    try {
+      const video = await axios.patch(`/video/dislike/${displayedVideo._id}`);
+      setLikes(video.data.video.likes.length);
+      setErrors({ message: "", type: "", show: false });
+    } catch (error) {
+      setErrors({
+        message: error.response.data.message,
+        type: "dislike",
+        show: true,
+      });
+    }
+  };
+
+  const subscribeToChannel = async () => {
+    try {
+      const myUser = await axios.get("/user/me/");
+      if (myUser.data.subscribedChannels.includes(displayedChannel._id)) {
+        await axios.patch(`/user/unsub/${displayedChannel._id}`);
+        await axios.patch(`/user/decSubs/${displayedChannel._id}`);
+        setSubscribed(false);
+      } else {
+        await axios.patch(`/user/sub/${displayedChannel._id}`);
+        await axios.patch(`/user/incSubs/${displayedChannel._id}`);
+        setSubscribed(true);
+      }
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  };
+
+  const showErrorsHandler = (ev, value) => {
+    ev.stopPropagation();
+    if (value) {
+      setErrors((oldErr) => ({ ...oldErr, show: value }));
+    } else {
+      setErrors((oldErr) => ({ ...oldErr, show: !errors.show }));
+    }
   };
 
   return (
-    <div className="watchVideoWrapper">
+    <div
+      className="watchVideoWrapper"
+      onClick={() => {
+        setErrors((oldErr) => ({ ...oldErr, show: false }));
+      }}
+    >
       <div className="displayedVideoWrapper">
         <iframe
           src={`${displayedVideo?.videoUrl}?autoplay=1`}
@@ -39,6 +98,12 @@ export const VideoLayout = () => {
                 ></img>
                 <h4>{likes === 0 ? displayedVideo?.likes.length : likes}</h4>
               </div>
+              {errors.show && (
+                <LikeDislikeErros
+                  showErrorsHandler={showErrorsHandler}
+                  error={errors}
+                ></LikeDislikeErros>
+              )}
               <div className="icon" onClick={dislikeVideo}>
                 <img
                   src="https://cdn1.iconfinder.com/data/icons/jumpicon-basic-ui-line-1/32/-_Thumb-Down-Dislike-Hand-512.png"
@@ -46,6 +111,12 @@ export const VideoLayout = () => {
                 ></img>
                 <h4>DISLIKE</h4>
               </div>
+              {errors.show && (
+                <LikeDislikeErros
+                  showErrorsHandler={showErrorsHandler}
+                  error={errors}
+                ></LikeDislikeErros>
+              )}
               <div className="icon">
                 <img
                   src="https://cdn1.iconfinder.com/data/icons/lucid-arrows-and-directions/24/arrow_right_share_curved_forward-512.png"
@@ -93,8 +164,10 @@ export const VideoLayout = () => {
             </div>
           </div>
 
-          <div className="subscribeToChannel">
-            <button className="subBtn">Subscribe</button>
+          <div className="subscribeToChannel" onClick={subscribeToChannel}>
+            <button className={isSubscribed ? "unSubBtn" : "subBtn"}>
+              {isSubscribed? "Unsubscribe" : "Subscribe"}
+            </button>
           </div>
         </div>
       </div>

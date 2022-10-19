@@ -14,7 +14,7 @@ export const Trending = () => {
   useEffect(() => {
     const loadTrendingVideos = async () => {
       try {
-        const response = await axios.get("/video/trend");
+        const response = await axios.get("video/trend");
         setVideos(response.data);
       } catch (error) {}
     };

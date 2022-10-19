@@ -14,12 +14,9 @@ export const Navigation = ({ showDropDownMenu, show, showModalHandler }) => {
     ev.preventDefault();
     try {
       if (searchValue.trim()) {
-        const response = await axios.post(
-          "/video/search",
-          {
-            search: searchValue,
-          }
-        );
+        const response = await axios.post("/video/search", {
+          search: searchValue,
+        });
         setVideos(response.data);
         navigateTo("/results");
       }
@@ -28,12 +25,13 @@ export const Navigation = ({ showDropDownMenu, show, showModalHandler }) => {
     }
   };
 
-  const logoutHandler = () => {
+  const logoutHandler = async () => {
     if (window.confirm("Are you sure you want to logout?")) {
+      await axios.get("/auth/logout");
       setAuthUser(null);
-      setSubbedChannels([])
+      setSubbedChannels([]);
       localStorage.removeItem("authUser");
-      document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
       navigateTo("/", { redirect: true });
     }
   };

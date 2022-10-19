@@ -8,7 +8,7 @@ $button-color: rgb(14, 104, 230);
 .headerWrapper {
   position: fixed;
   background-color: #fff;
-  opacity: 0.9;
+  opacity: 0.98;
   width: 100%;
   padding: 3px 15px;
   z-index: 1000;
@@ -368,6 +368,7 @@ main {
           color: #6c6c6c;
         }
         .icons {
+          position: relative;
           display: flex;
           gap: 26.5px;
           margin-bottom: 15px;
@@ -446,6 +447,19 @@ main {
           letter-spacing: 0.9px;
           background-color: rgb(208, 5, 5);
         }
+        .unSubBtn {
+          text-transform: uppercase;
+          cursor: pointer;
+          border: none;
+          border-radius: 2px;
+          padding: 10px 18px;
+          font-size: 15px;
+          color: rgb(208, 5, 5);
+          font-weight: 600;
+          letter-spacing: 0.9px;
+          background-color: #f9f9f9;
+          border: 1px solid rgb(208, 5, 5);
+        }
       }
     }
   }
@@ -480,6 +494,68 @@ main {
 
 .errBorder {
   border: 1px solid rgb(255, 134, 138);
+}
+
+.errorModalLike {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  background-color: #fff;
+  width: 378px;
+  height: 175px;
+  top: -700%;
+  box-shadow: 2px 4px 16px 0.5px;
+  .likeIt {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .sidehL {
+    position: absolute;
+    top: 63%;
+    left: 0;
+  }
+  .signInBtn {
+    margin-top: 35px;
+    border: none;
+    background-color: transparent;
+    text-transform: uppercase;
+    width: fit-content;
+    font-size: 16px;
+    padding: 0;
+    color: rgb(82, 82, 255);
+  }
+}
+.errorModalDislike {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  background-color: #fff;
+  width: 378px;
+  height: 175px;
+  top: -700%;
+  left: 13%;
+  box-shadow: 2px 4px 16px 0.5px;
+  .likeIt {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .sidehL {
+    position: absolute;
+    top: 63%;
+    left: 0;
+  }
+  .signInBtn {
+    margin-top: 35px;
+    border: none;
+    background-color: transparent;
+    text-transform: uppercase;
+    width: fit-content;
+    font-size: 16px;
+    padding: 0;
+    color: rgb(82, 82, 255);
+  }
 }
 a {
   text-decoration: none;

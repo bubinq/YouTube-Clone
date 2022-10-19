@@ -14,7 +14,7 @@ export const Subscriptions = () => {
   useEffect(() => {
     const loadSubscribedToChannels = async () => {
       try {
-        const response = await axios.get("/video/sub", {
+        const response = await axios.get("video/sub", {
           withCredentials: true,
         });
         setVideos(response.data);

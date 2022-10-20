@@ -195,6 +195,7 @@ $button-color: rgb(14, 104, 230);
 }
 .menuWrapper {
   display: flex;
+  position: fixed;
   margin-top: 66px;
   flex-direction: column;
   gap: 5px;
@@ -315,23 +316,24 @@ $button-color: rgb(14, 104, 230);
 }
 main {
   display: flex;
-  width: 100vw;
+  flex-direction: column;
   caret-color: transparent;
 }
 .sideAndMainWrapper {
-  position: relative;
   display: flex;
-  width: 100vw;
   caret-color: transparent;
+  height: 2000px;
 }
 .contentWrapper {
   margin-top: 70px;
+  margin-left: 245px;
   padding-left: 25px;
   padding-top: 25px;
   padding-right: 25px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-column-gap: 20px;
+  grid-row-gap: 40px;
   background-color: #f9f9f9;
   min-height: 268px;
 }
@@ -467,6 +469,7 @@ main {
 
 .contentWrapperResults {
   margin-top: 70px;
+  margin-left: 245px;
   padding-left: 100px;
   padding-top: 25px;
   padding-bottom: 25px;
@@ -474,7 +477,7 @@ main {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-column-gap: 20px;
-  grid-row-gap: 20px;
+  grid-row-gap: 40px;
   background-color: #f9f9f9;
   min-height: 268px;
   width: 100vw;
@@ -515,15 +518,18 @@ main {
     top: 63%;
     left: 0;
   }
-  .signInBtn {
-    margin-top: 35px;
-    border: none;
-    background-color: transparent;
-    text-transform: uppercase;
+  a {
     width: fit-content;
-    font-size: 16px;
-    padding: 0;
-    color: rgb(82, 82, 255);
+    .signInBtn {
+      margin-top: 35px;
+      border: none;
+      background-color: transparent;
+      text-transform: uppercase;
+      width: fit-content;
+      font-size: 16px;
+      padding: 0;
+      color: rgb(82, 82, 255);
+    }
   }
 }
 .errorModalDislike {
@@ -546,15 +552,53 @@ main {
     top: 63%;
     left: 0;
   }
-  .signInBtn {
-    margin-top: 35px;
-    border: none;
-    background-color: transparent;
-    text-transform: uppercase;
+  a {
     width: fit-content;
+    .signInBtn {
+      margin-top: 35px;
+      border: none;
+      background-color: transparent;
+      text-transform: uppercase;
+      width: fit-content;
+      font-size: 16px;
+      padding: 0;
+      color: rgb(82, 82, 255);
+    }
+  }
+}
+
+.errorModalSub {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  background-color: #fff;
+  width: 378px;
+  height: 175px;
+  top: -500%;
+  left: 31%;
+  box-shadow: 2px 4px 16px 0.5px;
+  .likeIt {
     font-size: 16px;
-    padding: 0;
-    color: rgb(82, 82, 255);
+    font-weight: 700;
+  }
+  .sidehL {
+    position: absolute;
+    top: 63%;
+    left: 0;
+  }
+  a {
+    width: fit-content;
+    .signInBtn {
+      margin-top: 35px;
+      border: none;
+      background-color: transparent;
+      text-transform: uppercase;
+      width: fit-content;
+      font-size: 16px;
+      padding: 0;
+      color: rgb(82, 82, 255);
+    }
   }
 }
 a {

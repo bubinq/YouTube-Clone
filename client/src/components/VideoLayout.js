@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { VideoContext } from "../contexts/videosContext";
 import { LikeDislikeErros } from "./LikeDislikeErrors";
 
@@ -9,11 +9,20 @@ export const VideoLayout = () => {
   const [errors, setErrors] = useState({ message: "", type: "", show: false });
   const [isSubscribed, setSubscribed] = useState(false);
 
-  // useEffect(() => {
-  //   const getMe = async () => {
-
-  //   }
-  // }, [])
+  useEffect(() => {
+    const getMe = async () => {
+      const myChannel = await axios.get("/user/me");
+      return myChannel.data
+    };
+    getMe().then((res) => {
+      if (res.subscribedChannels.includes(displayedChannel._id)) {
+        setSubscribed(true);
+      } else {
+        setSubscribed(false);
+      }
+    });
+    //eslint-disable-next-line
+  }, []);
 
   const likeVideo = async () => {
     try {
@@ -44,19 +53,25 @@ export const VideoLayout = () => {
   };
 
   const subscribeToChannel = async () => {
+    const myUser = await axios.get("/user/me/");
     try {
-      const myUser = await axios.get("/user/me/");
-      if (myUser.data.subscribedChannels.includes(displayedChannel._id)) {
+      if (myUser?.data.subscribedChannels.includes(displayedChannel._id)) {
         await axios.patch(`/user/unsub/${displayedChannel._id}`);
         await axios.patch(`/user/decSubs/${displayedChannel._id}`);
         setSubscribed(false);
+        setErrors({ message: "", type: "", show: false });
       } else {
         await axios.patch(`/user/sub/${displayedChannel._id}`);
         await axios.patch(`/user/incSubs/${displayedChannel._id}`);
         setSubscribed(true);
+        setErrors({ message: "", type: "", show: false });
       }
     } catch (error) {
-      alert(error.response.data.message);
+      setErrors({
+        message: error.response.data.message,
+        type: "sub",
+        show: true,
+      });
     }
   };
 
@@ -166,10 +181,17 @@ export const VideoLayout = () => {
 
           <div className="subscribeToChannel" onClick={subscribeToChannel}>
             <button className={isSubscribed ? "unSubBtn" : "subBtn"}>
-              {isSubscribed? "Unsubscribe" : "Subscribe"}
+              {isSubscribed ? "Unsubscribe" : "Subscribe"}
             </button>
           </div>
+          {errors.show && (
+            <LikeDislikeErros
+              showErrorsHandler={showErrorsHandler}
+              error={errors}
+            ></LikeDislikeErros>
+          )}
         </div>
+        <div className="sidehL"></div>
       </div>
     </div>
   );

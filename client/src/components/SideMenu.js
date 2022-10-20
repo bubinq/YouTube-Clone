@@ -6,17 +6,29 @@ import axios from "axios";
 import { VideoContext } from "../contexts/videosContext";
 
 export const SideMenu = ({ showModalHandler }) => {
-  const { authUser, subbedChannels, setSubbedChannels } =
+  const { authUser, setAuthUser, subbedChannels, setSubbedChannels } =
     useContext(AuthContext);
-  const { selectedMenu, setSelectedMenu, initialMenuState } = useContext(VideoContext);
+  const { selectedMenu, setSelectedMenu, initialMenuState } =
+    useContext(VideoContext);
+
   useEffect(() => {
-    if (subbedChannels.length === 0 && authUser !== null) {
-      authUser.subscribedChannels.map(async function (channel) {
-        const currChannel = await axios.get(`/user/users/${channel}`);
-        setSubbedChannels((oldData) => [...oldData, currChannel.data]);
+    if (authUser !== null) {
+      const getMe = async () => {
+        const myChannel = await axios.get("/user/me");
+        setAuthUser(myChannel.data);
+        return myChannel.data;
+      };
+      getMe().then((res) => {
+        const loadSubbedChannels = async () => {
+          setSubbedChannels([]);
+          res.subscribedChannels.map(async function (channel) {
+            const currChannel = await axios.get(`/user/users/${channel}`);
+            setSubbedChannels((oldData) => [...oldData, currChannel.data]);
+          });
+        };
+        loadSubbedChannels();
       });
     }
-
     //eslint-disable-next-line
   }, []);
   return (

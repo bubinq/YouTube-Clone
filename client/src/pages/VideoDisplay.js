@@ -8,6 +8,7 @@ import { VideoContext } from "../contexts/videosContext";
 export const VideoDisplay = () => {
   const currentVideo = useParams().videoId;
   const [show, setShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(true)
   const { setDislayedVideo, setDisplayedChannel } = useContext(VideoContext);
   const showDropDownMenu = (ev, value) => {
     ev.stopPropagation();
@@ -24,6 +25,7 @@ export const VideoDisplay = () => {
       setDislayedVideo(video.data);
       const channel = await axios.get(`/user/users/${video.data.ownerId}`)
       setDisplayedChannel(channel.data)
+      setIsLoading(false)
     };
     const increaseView = async () => {
       await axios.put(`/video/view/${currentVideo}`);
@@ -44,7 +46,9 @@ export const VideoDisplay = () => {
     >
       <Navigation showDropDownMenu={showDropDownMenu} show={show}></Navigation>
       <main>
-        <VideoLayout></VideoLayout>
+        {!isLoading &&
+          <VideoLayout></VideoLayout>
+        }
       </main>
     </div>
   );

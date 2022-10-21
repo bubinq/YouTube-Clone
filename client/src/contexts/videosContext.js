@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useSessionStorage } from "../hooks/useSessionStorage";
 
 export const VideoContext = createContext();
 
@@ -12,7 +12,7 @@ const initialMenuState = {
 };
 
 export const VideoProvider = ({ children }) => {
-  const [videos, setVideos] = useLocalStorage("videos", []);
+  const [videos, setVideos] = useSessionStorage("videos", []);
   const [displayedVideo, setDislayedVideo] = useState(null);
   const [likes, setLikes] = useState(0);
   const [displayedChannel, setDisplayedChannel] = useState(null)

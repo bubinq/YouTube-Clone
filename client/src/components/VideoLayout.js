@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { VideoContext } from "../contexts/videosContext";
 import { LikeDislikeErros } from "./LikeDislikeErrors";
+import { TaggedVideos } from "./TaggedVideos";
 
 export const VideoLayout = () => {
   const { displayedVideo, displayedChannel, likes, setLikes } =
@@ -12,7 +13,7 @@ export const VideoLayout = () => {
   useEffect(() => {
     const getMe = async () => {
       const myChannel = await axios.get("/user/me");
-      return myChannel.data
+      return myChannel.data;
     };
     getMe().then((res) => {
       if (res.subscribedChannels.includes(displayedChannel._id)) {
@@ -192,6 +193,9 @@ export const VideoLayout = () => {
           )}
         </div>
         <div className="sidehL"></div>
+      </div>
+      <div className="displayedTaggedVideosWrapper">
+        <TaggedVideos video={displayedVideo}></TaggedVideos>
       </div>
     </div>
   );

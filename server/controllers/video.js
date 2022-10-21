@@ -11,7 +11,7 @@ export const createVideo = async (req, res) => {
     res.status(201).json(saved);
   } catch (error) {
     console.log(error.message);
-    res.status(400).json({message: error.message});
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -65,7 +65,7 @@ export const getVideo = async (req, res) => {
 export const increaseViews = async (req, res) => {
   try {
     const video = await Video.findOneAndUpdate(
-      {_id: req.params.Id},
+      { _id: req.params.Id },
       { $inc: { views: 1 } },
       { new: true }
     );
@@ -79,14 +79,14 @@ export const increaseViews = async (req, res) => {
 export const increaseTrendingViews = async (req, res) => {
   try {
     const video = await Video.findOneAndUpdate(
-      {_id: req.params.Id},
+      { _id: req.params.Id },
       { $inc: { trending: 1 } },
       { new: true }
     );
-    res.status(200).json(video)
+    res.status(200).json(video);
   } catch (error) {
-    console.log(error.message)
-    res.status(400).json('Something went wrong!')
+    console.log(error.message);
+    res.status(400).json("Something went wrong!");
   }
 };
 
@@ -125,6 +125,17 @@ export const getSubscribedVideos = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.status(400).json("Something went wrong!");
+  }
+};
+
+export const getTagLikeVideos = async (req, res) => {
+  const searchedVideo = await Video.findById(req.params.Id);
+  try {
+    const videos = await Video.find({ tags: { $in: searchedVideo.tags } });
+    res.status(200).json(videos);
+  } catch (error) {
+    console.log(error.message)
+    res.status(400).json(error.message)
   }
 };
 

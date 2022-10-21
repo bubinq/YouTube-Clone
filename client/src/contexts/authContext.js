@@ -1,10 +1,10 @@
 import { createContext, useState } from "react";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useSessionStorage } from "../hooks/useSessionStorage";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [authUser, setAuthUser] = useLocalStorage("authUser", null);
+  const [authUser, setAuthUser] = useSessionStorage("authUser", null);
   const [subbedChannels, setSubbedChannels] = useState([])
   return (
     <AuthContext.Provider value={{ authUser, setAuthUser, subbedChannels, setSubbedChannels }}>

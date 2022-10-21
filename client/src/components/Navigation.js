@@ -30,7 +30,7 @@ export const Navigation = ({ showDropDownMenu, show, showModalHandler }) => {
       await axios.get("/auth/logout");
       setAuthUser(null);
       setSubbedChannels([]);
-      localStorage.removeItem("authUser");
+      sessionStorage.removeItem("authUser");
 
       navigateTo("/", { redirect: true });
     }

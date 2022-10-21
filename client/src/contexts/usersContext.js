@@ -1,10 +1,10 @@
 import { createContext } from "react";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useSessionStorage } from "../hooks/useSessionStorage";
 
 export const UsersContext = createContext();
 
 export const UsersProvider = ({ children }) => {
-  const [users, setUsers] = useLocalStorage("users", []);
+  const [users, setUsers] = useSessionStorage("users", []);
   return (
     <UsersContext.Provider value={{ users, setUsers }}>
       {children}

@@ -4,7 +4,8 @@ export const addComment = async(req, res) => {
     const newComment = new Comment({message: req.body.message, userId: req.user.id, videoId: req.params.videoId})
     try {
         const savedComment = await newComment.save()
-        res.status(201).json(savedComment)
+        const comments = await Comment.find({videoId: req.params.videoId}).sort({createdAt: -1}).populate('userId')
+        res.status(201).json({saved: savedComment, allComments: comments})
         
     } catch (error) {
         console.log(error.message)
@@ -14,7 +15,7 @@ export const addComment = async(req, res) => {
 
 export const getAllComments = async(req, res) => {
     try {
-        const comments = await Comment.find({videoId: req.params.videoId})
+        const comments = await Comment.find({videoId: req.params.videoId}).sort({createdAt: -1}).populate('userId')
         res.status(200).json(comments)
         
     } catch (error) {

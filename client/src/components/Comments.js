@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../contexts/authContext";
 import { CommentContext } from "../contexts/commentsContext";
+import { useNavigate } from "react-router";
 export const Comments = ({ video }) => {
   const [showBtns, setShowBtns] = useState(false);
   const [commentValue, setCommentValue] = useState({
@@ -11,6 +12,7 @@ export const Comments = ({ video }) => {
   });
   const { authUser } = useContext(AuthContext);
   const { comments, dispatch } = useContext(CommentContext);
+  const navigateTo = useNavigate()
 
   useEffect(() => {
     const loadVideoComments = async () => {
@@ -43,6 +45,9 @@ export const Comments = ({ video }) => {
   };
 
   const commentFocusHandler = () => {
+    if(!authUser) {
+      navigateTo('/login', {replace: true})
+    }
     setShowBtns(true);
   };
 
@@ -60,7 +65,7 @@ export const Comments = ({ video }) => {
         <span className="count">{comments.length} Comments</span>
       </div>
       <div className="userProfile">
-        <img src={authUser.img} alt="User Profile"></img>
+        <img src={authUser?.img || "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg"} alt="User Profile"></img>
         <form onSubmit={addCommentHandler}>
           <input
             type="text"

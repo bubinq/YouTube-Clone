@@ -314,6 +314,51 @@ $button-color: rgb(14, 104, 230);
     }
   }
 }
+.menuToggle {
+  display: flex;
+  position: fixed;
+  margin-top: 66px;
+  flex-direction: column;
+  gap: 5px;
+  width: 72px;
+  ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    a {
+      display: block;
+      width: 100%;
+      text-decoration: none;
+      color: black;
+      &:hover {
+        background-color: #f2f2f2;
+      }
+    }
+    .selected {
+      background-color: #dadada;
+    }
+    li {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 0px;
+      img {
+        width: 21px;
+        height: 21px;
+      }
+      span {
+        font-size: 11px;
+      }
+    }
+  }
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -336,6 +381,20 @@ main {
   grid-row-gap: 40px;
   background-color: #f9f9f9;
   min-height: 268px;
+}
+.contentWrapperToggle {
+  margin-top: 70px;
+  margin-left: 72px;
+  padding-left: 25px;
+  padding-top: 25px;
+  padding-right: 25px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 40px;
+  background-color: #f9f9f9;
+  min-height: 268px;
+  width: 95vw;
 }
 .watchVideoWrapper {
   display: flex;
@@ -628,6 +687,21 @@ main {
 .contentWrapperResults {
   margin-top: 70px;
   margin-left: 245px;
+  padding-left: 100px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-right: 25px;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 40px;
+  background-color: #f9f9f9;
+  min-height: 268px;
+  width: 100vw;
+}
+.contentWrapperResultsToggle {
+  margin-top: 70px;
+  margin-left: 72px;
   padding-left: 100px;
   padding-top: 25px;
   padding-bottom: 25px;

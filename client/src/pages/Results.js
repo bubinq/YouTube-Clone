@@ -4,10 +4,12 @@ import { SideMenu } from "../components/SideMenu";
 import { VideoContext } from "../contexts/videosContext";
 import { VideoCardSearching } from "../components/VideoCardSearching";
 import { UsersContext } from "../contexts/usersContext";
+import { NavigationContext } from "../contexts/navigationContext";
 
 export const Results = () => {
   const { videos } = useContext(VideoContext);
   const { users } = useContext(UsersContext);
+  const {toggleSideMenu} = useContext(NavigationContext)
 
   const [show, setShow] = useState(false);
   const showDropDownMenu = (ev, value) => {
@@ -24,7 +26,7 @@ export const Results = () => {
       <div className="sideAndMainWrapper">
         <SideMenu></SideMenu>
         <main>
-          <div className="contentWrapperResults">
+          <div className={toggleSideMenu? "contentWrapperResults" : "contentWrapperResultsToggle"}>
             {videos &&
               videos.map((video) => (
                 <VideoCardSearching

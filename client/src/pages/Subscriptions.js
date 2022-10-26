@@ -5,11 +5,13 @@ import axios from "axios";
 import { VideoContext } from "../contexts/videosContext";
 import { VideoCard } from "../components/VideoCard";
 import { UsersContext } from "../contexts/usersContext";
+import { NavigationContext } from "../contexts/navigationContext";
 
 export const Subscriptions = () => {
   const [show, setShow] = useState(false);
   const { videos, setVideos } = useContext(VideoContext);
   const { users } = useContext(UsersContext);
+  const { toggleSideMenu } = useContext(NavigationContext);
 
   useEffect(() => {
     const loadSubscribedToChannels = async () => {
@@ -42,7 +44,11 @@ export const Subscriptions = () => {
       <div className="sideAndMainWrapper">
         <SideMenu></SideMenu>
         <main>
-          <div className="contentWrapper">
+          <div
+            className={
+              toggleSideMenu ? "contentWrapper" : "contentWrapperToggle"
+            }
+          >
             {videos &&
               videos.map((video) => (
                 <VideoCard

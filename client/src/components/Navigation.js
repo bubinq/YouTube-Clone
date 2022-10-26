@@ -4,9 +4,11 @@ import { AuthContext } from "../contexts/authContext";
 import { useState } from "react";
 import axios from "axios";
 import { VideoContext } from "../contexts/videosContext";
+import { NavigationContext } from "../contexts/navigationContext";
 export const Navigation = ({ showDropDownMenu, show, showModalHandler }) => {
   const { authUser, setAuthUser, setSubbedChannels } = useContext(AuthContext);
   const { setVideos } = useContext(VideoContext);
+  const { sideMenuToggle } = useContext(NavigationContext);
   const [searchValue, setSearchValue] = useState("");
   const navigateTo = useNavigate();
 
@@ -35,12 +37,13 @@ export const Navigation = ({ showDropDownMenu, show, showModalHandler }) => {
       navigateTo("/", { redirect: true });
     }
   };
+
   return (
     <header>
       <div className="headerWrapper">
         <nav>
           <div className="logoWrapper">
-            <div className="menuBtnWrapper">
+            <div className="menuBtnWrapper" onClick={sideMenuToggle}>
               <div></div>
               <div></div>
               <div></div>

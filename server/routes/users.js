@@ -7,6 +7,7 @@ import {
   getMe,
   getUser,
   incrementSubscribersCount,
+  recommendVideos,
   subscribeToChannel,
   unSubscribeToChannel,
   updateUser,
@@ -22,4 +23,5 @@ router.patch("/update/:userId", verifyToken, updateUser);
 router.delete("/delete/:userId", verifyToken, deleteUser);
 router.patch("/sub/:userId", verifyToken, subscribeToChannel);
 router.patch("/unsub/:userId", verifyToken, unSubscribeToChannel);
+router.patch("/recommend", verifyToken, recommendVideos)
 export default router;

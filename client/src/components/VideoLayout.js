@@ -68,8 +68,8 @@ export const VideoLayout = () => {
   };
 
   const subscribeToChannel = async () => {
-    const myUser = await axios.get("/user/me/");
     try {
+      const myUser = await axios.get("/user/me/");
       if (myUser?.data.subscribedChannels.includes(displayedChannel._id)) {
         await axios.patch(`/user/unsub/${displayedChannel._id}`);
         await axios.patch(`/user/decSubs/${displayedChannel._id}`);

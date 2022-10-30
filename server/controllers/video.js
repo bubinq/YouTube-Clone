@@ -1,4 +1,4 @@
-import user from "../models/user.js";
+import User from "../models/user.js";
 import Video from "../models/video.js";
 
 export const createVideo = async (req, res) => {
@@ -112,7 +112,7 @@ export const getTrendingVideos = async (req, res) => {
 
 export const getSubscribedVideos = async (req, res) => {
   try {
-    const currentUser = await user.findById(req.user.id);
+    const currentUser = await User.findById(req.user.id);
     const subscriptions = currentUser.subscribedChannels;
 
     const channels = await Promise.all(
@@ -134,8 +134,21 @@ export const getTagLikeVideos = async (req, res) => {
     const videos = await Video.find({ tags: { $in: searchedVideo.tags } });
     res.status(200).json(videos);
   } catch (error) {
-    console.log(error.message)
-    res.status(400).json(error.message)
+    console.log(error.message);
+    res.status(400).json(error.message);
+  }
+};
+
+export const getRecommendedVideos = async (req, res) => {
+  try {
+    const currUser = await User.findById(req.user.id);
+    const videos = await Video.find({
+      tags: { $in: currUser.recommendedVideos },
+    });
+    res.status(200).json(videos);
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json(error.message);
   }
 };
 

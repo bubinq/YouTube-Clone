@@ -79,7 +79,9 @@ export const Comments = ({ video }) => {
             <div className="buttons">
               <button
                 className="cancel"
+                type="reset"
                 onClick={() => {
+                  console.log("Zashto");
                   setShowBtns(false);
                   setCommentValue({ comment: "", activateBtn: false });
                 }}

@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -26,7 +26,8 @@ const userSchema = new mongoose.Schema({
         default: []
     },
     recommendedVideos: {
-        type: mongoose.Schema.Types.Mixed
+        type: [String],
+        default: []
     },
 }, {timestamps: true})
 

@@ -130,10 +130,8 @@ export const recommendVideos = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     req.body.tags.forEach((tag) => {
-      if (user.recommendedVideos.hasOwnProperty(tag)) {
-        user.recommendedVideos[tag] += 1
-      } else {
-        user.recommendedVideos[tag] = 1;
+      if (!user.recommendedVideos.includes(tag)) {
+        user.recommendedVideos.push(tag)
       }
     });
     user.markModified('recommendedVideos')

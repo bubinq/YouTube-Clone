@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 $button-color: rgb(14, 104, 230);
+$breakpoint-tablet: 768px;
+$breakpoint-videos: 1142px;
+$breakpoint-telly: 512px;
+
 .headerWrapper {
   position: fixed;
   background-color: #fff;
@@ -61,6 +65,11 @@ $button-color: rgb(14, 104, 230);
       margin-top: 6px;
       form {
         display: flex;
+        input {
+          border-top-left-radius: 20px;
+          border-bottom-left-radius: 20px;
+          padding-left: 15px;
+        }
       }
       .searchBtn {
         display: flex;
@@ -68,6 +77,8 @@ $button-color: rgb(14, 104, 230);
         background-color: rgb(247, 247, 247);
         border: 1px solid lightgrey;
         border-left: none;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
         cursor: pointer;
         .tooltip {
           position: relative;
@@ -196,10 +207,12 @@ $button-color: rgb(14, 104, 230);
 .menuWrapper {
   display: flex;
   position: fixed;
-  margin-top: 66px;
+  margin-top: 67px;
   flex-direction: column;
   gap: 5px;
   width: 240px;
+  background-color: white;
+  z-index: 1000;
 
   .sidehL {
     width: 92%;
@@ -365,7 +378,6 @@ main {
   caret-color: transparent;
 }
 .sideAndMainWrapper {
-  display: flex;
   caret-color: transparent;
   height: 2000px;
 }
@@ -381,6 +393,7 @@ main {
   grid-row-gap: 40px;
   background-color: #f9f9f9;
   min-height: 268px;
+  min-width: 512px;
 }
 .contentWrapperToggle {
   margin-top: 70px;
@@ -412,9 +425,7 @@ main {
         width: 100%;
       }
       iframe {
-        min-width: 300px;
         width: 960px;
-        min-height: 270px;
         height: 530px;
       }
       .displayedVideoInfo {
@@ -840,11 +851,14 @@ a {
 .cardWrapper {
   display: flex;
   flex-direction: column;
-  width: 292px;
-  height: 300px;
-  img {
+  min-width: 242px;
+  max-width: 292px;
+  min-height: 133px;
+  max-height: 300px;
+  .cardImg {
     cursor: pointer;
-    width: 292px;
+    object-fit: cover;
+    max-width: 100%;
     height: 182px;
     border: 1px solid black;
   }
@@ -996,5 +1010,165 @@ a {
     height: 30px;
     border-radius: 50%;
     object-fit: cover;
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  left: 0;
+  background-color: #3f3f3f;
+  z-index: 1000;
+}
+
+@media (max-width: 1074px) {
+  .contentWrapperToggle {
+    margin-top: 70px;
+    margin-left: 72px;
+    padding-left: 25px;
+    padding-top: 25px;
+    padding-right: 25px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 40px;
+    background-color: #f9f9f9;
+    min-height: 268px;
+    width: 95vw;
+  }
+}
+
+@media (max-width: 758px) {
+  .contentWrapperToggle {
+    margin-top: 70px;
+    margin-left: 72px;
+    padding-left: 25px;
+    padding-top: 25px;
+    padding-right: 25px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 40px;
+    background-color: #f9f9f9;
+    min-height: 268px;
+    width: 95vw;
+  }
+  .headerWrapper {
+    padding: 0px;
+    nav {
+      .searchBar {
+        min-width: 100px;
+      }
+      .signInBtn {
+        img {
+          display: none;
+        }
+        .signIn {
+          padding: 6px 18px;
+          margin-right: 10px;
+          margin-left: 10px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 574px) {
+  .sideAndMainWrapper {
+    height: 100vh;
+  }
+  .homeWrapper {
+    width: 100%;
+  }
+  .headerWrapper {
+    width: 100%;
+    padding: 0px;
+  }
+  .menuToggle {
+    display: none;
+  }
+  .menuWrapper {
+    margin-top: 62px;
+    width: 40%;
+  }
+  .contentWrapperToggle {
+    position: relative;
+    margin-left: 0px;
+    margin-top: 70px;
+    padding-left: 55px;
+    padding-top: 25px;
+    padding-right: 25px;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-column-gap: 20px;
+    background-color: #f9f9f9;
+    min-height: 268px;
+    width: 100vw;
+  }
+  .contentWrapper {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    margin-left: 0px;
+    padding-left: 50px;
+    min-width: 412px;
+  }
+  .contentWrapperResults {
+    margin-left: 0px;
+  }
+  .contentWrapperResultsToggle {
+    margin-left: 0px;
+    padding-left: 25px;
+    width: 100%;
+    grid-row-gap: 0px;
+    .searchWrapper {
+      a {
+        .thumbnailVideo {
+          min-width: 120px;
+          max-width: 180px;
+          max-height: 140px;
+          min-height: 80px;
+          aspect-ratio: 16/9;
+        }
+      }
+    }
+  }
+  .watchVideoWrapper {
+    .videoAndTagged {
+      .displayedVideoWrapper {
+        padding-left: 15px;
+        iframe {
+          max-width: 330px;
+          max-height: 260px;
+        }
+        .displayedVideoInfo {
+          width: 300px;
+          .likeDislike {
+            display: block;
+            .icons {
+              margin-top: 15px;
+              gap: 18px;
+              .share {
+                display: none;
+              }
+              .clip {
+                display: none;
+              }
+              .dots {
+                display: none;
+              }
+            }
+          }
+        }
+        .displayedVideoChannelInfo {
+          max-width: 300px;
+        }
+      }
+      .displayedTaggedVideosWrapper {
+        display: none;
+      }
+    }
   }
 }

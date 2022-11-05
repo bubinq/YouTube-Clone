@@ -27,7 +27,7 @@ export const TaggedVideos = ({ video }) => {
             ></img>
             <div className="tagInfo">
               <h4 className="taggedHeading">{tagVideo.title}</h4>
-              <span className="taggedCreator">Creator</span>
+              <span className="taggedCreator">{tagVideo.ownerId.name}</span>
               <div className="tagViews">
                 <span>
                   {tagVideo.views} views • {dayjs(tagVideo.createdAt).fromNow()}

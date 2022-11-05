@@ -131,7 +131,7 @@ export const getSubscribedVideos = async (req, res) => {
 export const getTagLikeVideos = async (req, res) => {
   const searchedVideo = await Video.findById(req.params.Id);
   try {
-    const videos = await Video.find({ tags: { $in: searchedVideo.tags } });
+    const videos = await Video.find({ tags: { $in: searchedVideo.tags } }).populate('ownerId');
     res.status(200).json(videos);
   } catch (error) {
     console.log(error.message);

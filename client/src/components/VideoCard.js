@@ -17,7 +17,7 @@ export const VideoCard = ({ video, users }) => {
   return (
     <div className="cardWrapper">
       <Link to={`/watch/${video._id}`}>
-        <img src={video.imgUrl} alt={video.title}></img>
+        <img className="cardImg" src={video.imgUrl} alt={video.title}></img>
         <div className="videoDescription">
           <div className="creatorChannel">
             <img src={currUser.img} alt="Display profile"></img>

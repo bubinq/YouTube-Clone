@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 
 const videoSchema = new mongoose.Schema({
     ownerId: {
-        type: String,
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
         required: true
     },
     title: {

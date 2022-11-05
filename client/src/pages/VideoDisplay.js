@@ -4,11 +4,15 @@ import { Navigation } from "../components/Navigation";
 import { VideoLayout } from "../components/VideoLayout";
 import { useParams } from "react-router";
 import { VideoContext } from "../contexts/videosContext";
+import { SideMenu } from "../components/SideMenu";
+import { NavigationContext } from "../contexts/navigationContext";
+import { Overlay } from "../components/Overlay";
 
 export const VideoDisplay = () => {
   const currentVideo = useParams().videoId;
   const [show, setShow] = useState(false);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
+  const { sideShow, setSideShow } = useContext(NavigationContext);
   const { setDislayedVideo, setDisplayedChannel } = useContext(VideoContext);
   const showDropDownMenu = (ev, value) => {
     ev.stopPropagation();
@@ -23,9 +27,9 @@ export const VideoDisplay = () => {
     const loadVideo = async () => {
       const video = await axios.get(`/video/${currentVideo}`);
       setDislayedVideo(video.data);
-      const channel = await axios.get(`/user/users/${video.data.ownerId}`)
-      setDisplayedChannel(channel.data)
-      setIsLoading(false)
+      const channel = await axios.get(`/user/users/${video.data.ownerId}`);
+      setDisplayedChannel(channel.data);
+      setIsLoading(false);
     };
     const increaseView = async () => {
       await axios.put(`/video/view/${currentVideo}`);
@@ -36,6 +40,9 @@ export const VideoDisplay = () => {
     loadVideo();
     increaseView();
     increaseTrendinvView();
+    return () => {
+      setSideShow(false)
+    }
     //eslint-disable-next-line
   }, []);
   return (
@@ -45,11 +52,13 @@ export const VideoDisplay = () => {
       }}
     >
       <Navigation showDropDownMenu={showDropDownMenu} show={show}></Navigation>
-      <main>
-        {!isLoading &&
-          <VideoLayout></VideoLayout>
-        }
-      </main>
+      {sideShow && (
+        <>
+          <SideMenu></SideMenu>
+          <Overlay></Overlay>
+        </>
+      )}
+      <main>{!isLoading && <VideoLayout></VideoLayout>}</main>
     </div>
   );
 };

@@ -6,7 +6,7 @@ export const VideoCardSearching = ({ video, users }) => {
   return (
     <div className="searchWrapper">
       <Link to={`/watch/${video._id}`}>
-        <img src={video.imgUrl} alt={video.title}></img>
+        <img src={video.imgUrl} alt={video.title} className="thumbnailVideo"></img>
         <div className="searchVideoDescription">
           <div className="searchVideoInfo">
             <h3>{video.title}</h3>

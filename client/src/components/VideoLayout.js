@@ -127,7 +127,7 @@ export const VideoLayout = () => {
                   : dayjs(displayedVideo?.createdAt).fromNow()}
               </span>
               <div className="icons">
-                <div className="icon" onClick={likeVideo}>
+                <div className="icon like" onClick={likeVideo}>
                   <img
                     src="https://cdn2.iconfinder.com/data/icons/social-productivity-line-art-2/128/thumbs-up-2-512.png"
                     alt="like btn"
@@ -140,7 +140,7 @@ export const VideoLayout = () => {
                     error={errors}
                   ></LikeDislikeErros>
                 )}
-                <div className="icon" onClick={dislikeVideo}>
+                <div className="icon dislike" onClick={dislikeVideo}>
                   <img
                     src="https://cdn1.iconfinder.com/data/icons/jumpicon-basic-ui-line-1/32/-_Thumb-Down-Dislike-Hand-512.png"
                     alt="dislike video"
@@ -153,28 +153,28 @@ export const VideoLayout = () => {
                     error={errors}
                   ></LikeDislikeErros>
                 )}
-                <div className="icon">
+                <div className="icon share">
                   <img
                     src="https://cdn1.iconfinder.com/data/icons/lucid-arrows-and-directions/24/arrow_right_share_curved_forward-512.png"
                     alt="share video"
                   ></img>
                   <h4>SHARE</h4>
                 </div>
-                <div className="icon">
+                <div className="icon down">
                   <img
                     src="https://cdn2.iconfinder.com/data/icons/lightly-icons/30/download-alt-480.png"
                     alt="Download video"
                   ></img>
                   <h4>DOWNLOAD</h4>
                 </div>
-                <div className="icon">
+                <div className="icon clip">
                   <img
                     src="https://cdn0.iconfinder.com/data/icons/phosphor-thin-vol-4/256/scissors-thin-512.png"
                     alt="Clip video"
                   ></img>
                   <h4>CLIP</h4>
                 </div>
-                <div className="icon">
+                <div className="icon dots">
                   <h3>...</h3>
                 </div>
               </div>

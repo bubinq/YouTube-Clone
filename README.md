@@ -14,5 +14,5 @@ React.js
 Express/ MongoDb/ Mongoose
 JWT
 HTML
-CSS
+SCSS/CSS
 JS

@@ -1093,6 +1093,7 @@ a {
   .menuWrapper {
     margin-top: 62px;
     width: 40%;
+    overflow: hidden;
   }
   .contentWrapperToggle {
     position: relative;
@@ -1134,6 +1135,9 @@ a {
         }
       }
     }
+  }
+  .dropDownMenu {
+    z-index: 1000;
   }
   .watchVideoWrapper {
     .videoAndTagged {

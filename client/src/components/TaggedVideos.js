@@ -1,23 +1,24 @@
 import axios from "axios";
-import dayjs from "dayjs"
+import dayjs from "dayjs";
 import { useState, useEffect } from "react";
-import relativeTime from "dayjs/plugin/relativeTime"
-dayjs.extend(relativeTime)
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 export const TaggedVideos = ({ video }) => {
   const [taggedVideos, setTaggedVideos] = useState([]);
-  
+  const [owners, setOwners] = useState([]);
 
   useEffect(() => {
     const loadTaggedVideos = async () => {
       const videos = await axios.get(`/video/tags/${video._id}`);
-      setTaggedVideos(videos.data);
+      setTaggedVideos(videos.data.videos);
+      setOwners(videos.data.owners);
     };
     loadTaggedVideos();
   }, [video._id]);
   return (
     <div className="tagsWrapper">
-      {taggedVideos.map((tagVideo) => (
+      {taggedVideos.map((tagVideo, index) => (
         <a key={tagVideo._id} href={`/watch/${tagVideo._id}`}>
           <div className="taggedVideo">
             <img
@@ -27,7 +28,7 @@ export const TaggedVideos = ({ video }) => {
             ></img>
             <div className="tagInfo">
               <h4 className="taggedHeading">{tagVideo.title}</h4>
-              <span className="taggedCreator">{tagVideo.ownerId.name}</span>
+              <span className="taggedCreator">{owners[index].name}</span>
               <div className="tagViews">
                 <span>
                   {tagVideo.views} views • {dayjs(tagVideo.createdAt).fromNow()}

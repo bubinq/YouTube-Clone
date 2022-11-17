@@ -13,16 +13,16 @@ export const Navigation = ({ showDropDownMenu, show, showModalHandler }) => {
   const { sideMenuToggle, setToggleSideMenu } = useContext(NavigationContext);
   const [searchValue, setSearchValue] = useState("");
   const navigateTo = useNavigate();
-  const size = useWindowSize()
+  const size = useWindowSize();
 
   useEffect(() => {
-    if(size.width < 1062) {
-      setToggleSideMenu(false)
+    if (size.width < 1062 && !window.location.pathname.includes("watch")) {
+      setToggleSideMenu(false);
     } else {
-      setToggleSideMenu(true)
+      setToggleSideMenu(true);
     }
     //eslint-disable-next-line
-  }, [size.width])
+  }, [size.width]);
 
   const searchVideoHandler = async (ev) => {
     ev.preventDefault();

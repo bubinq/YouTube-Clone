@@ -114,13 +114,11 @@ export const getSubscribedVideos = async (req, res) => {
   try {
     const currentUser = await User.findById(req.user.id);
     const subscriptions = currentUser.subscribedChannels;
-
     const channels = await Promise.all(
       subscriptions.map((channels) => {
-        return Video.find({ ownerId: channels });
+        return Video.find({ownerId: channels});
       })
     );
-
     res.status(200).json(channels.flat());
   } catch (error) {
     console.log(error.message);
@@ -131,8 +129,15 @@ export const getSubscribedVideos = async (req, res) => {
 export const getTagLikeVideos = async (req, res) => {
   const searchedVideo = await Video.findById(req.params.Id);
   try {
-    const videos = await Video.find({ tags: { $in: searchedVideo.tags } }).populate('ownerId');
-    res.status(200).json(videos);
+    const videos = await Video.find({ tags: { $in: searchedVideo.tags } });
+    const videoHolders = []
+    videos.forEach(video => videoHolders.push(video.ownerId))
+    const owners = await Promise.all(
+      videoHolders.map(holders => {
+        return User.find({_id: holders})
+      })
+    )
+    res.status(200).json({videos, owners: owners.flat()});
   } catch (error) {
     console.log(error.message);
     res.status(400).json(error.message);

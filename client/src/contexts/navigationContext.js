@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 export const NavigationContext = createContext();
 
 export const NavigationProvider = ({ children }) => {
-  const [toggleSideMenu, setToggleSideMenu] = useState(true);
+  const [toggleSideMenu, setToggleSideMenu] = useState(false);
   const [sideShow, setSideShow] = useState(false);
 
   const sideMenuToggle = () => {
